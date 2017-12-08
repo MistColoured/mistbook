@@ -1,47 +1,6 @@
-const Card = (props) => {
-    return (
-        <div style={{margin: '1em'}}>
-            <img width="75" src={props.avatar_url} />
-            <div style={{display: 'inline-block', marginLeft: 10}}>
-                <div style={{fontSize: '1.25em', fontWeight: 'bold'}}>
-                    {props.name}
-                </div>
-                <div>{props.company}</div>
-            </div>
-        </div>
-    );
-};
-
-const CardList = (props) => {
-    return (
-        <div>
-            {props.cards.map(card => <Card key={card.id} {...card} />)}
-        </div>
-    );
-};
-
-class Form extends React.Component {
-    state = { userName: '' }
-    handleSubmit = (event) => {
-        event.preventDefault();
-        axios.get(`https://api.github.com/users/${this.state.userName}`)
-            .then(resp => {
-                this.props.onSubmit(resp.data);
-                this.setState({ userName: '' });
-            });
-    };
-    render() {
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <input type="text"
-                       value={this.state.userName}
-                       onChange={(event) => this.setState({ userName: event.target.value })}
-                       placeholder="Github username" required />
-                <button type="submit">Add card</button>
-            </form>
-        );
-    }
-}
+import React from 'react'
+import Form from './Form'
+import CardList from './CardList'
 
 class App extends React.Component {
     state = {
@@ -64,4 +23,4 @@ class App extends React.Component {
     }
 }
 
-ReactDOM.render(<App />, mountNode);
+export default App
